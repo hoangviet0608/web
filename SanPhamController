@@ -1,0 +1,76 @@
+using QLBH.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace QLBH.Controllers
+{
+    public class SanPhamController : Controller
+    {
+        DataClasses1DataContext db = new DataClasses1DataContext("Data Source=VIET;Initial Catalog=QLBH;Integrated Security=True");
+        // GET: SanPham
+
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        public string Create(FormCollection form)
+        {
+            //code xu ly add
+            string id = form["ID"];
+            string name = form["Name"];
+
+            sanpham newObj = new sanpham();
+            newObj.id = id;
+            newObj.name = name;
+
+            db.sanphams.InsertOnSubmit(newObj);
+            db.SubmitChanges();
+
+            return "them moi thanh cong";
+        }
+
+        public ActionResult Edit()
+        {
+            string abc = Request.QueryString["ID"];
+            sanpham editObj = db.sanphams.Where(o=> o.id == abc).FirstOrDefault();
+            return View(editObj);
+        }
+
+        public string PostEdit(FormCollection form)
+        {
+            string id = form["ID"];
+            string name = form["Name"];
+
+            sanpham editObj = db.sanphams.Where(o=> o.id == id).FirstOrDefault();
+
+            editObj.name = name;
+
+            db.SubmitChanges();
+
+            return "chinh sua thanh cong";
+        }
+        public ActionResult Index()
+        {
+            List<sanpham> x = db.sanphams.ToList();
+            return View(x);
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Nguyen Hoang Viet";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Nguyen Hoang Viet";
+
+            return View();
+        }
+    }
+}
