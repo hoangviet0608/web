@@ -1,0 +1,14 @@
+﻿
+@{ 
+    ViewBag.Title = "Add";
+}
+
+<h2>Them san pham moi:</h2>
+<form action="SinhVienCreate" method="post">
+    <label for="ID:">id</label>
+    <input type="text" name="ID" value="@Model.id" />
+    <label for="Name">name</label>
+    <input type="text" name="Name" value="@Model.name" />
+    <input type="submit" name="Submit" value="Them moi: " />
+</form>
+
