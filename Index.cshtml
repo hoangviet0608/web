@@ -1,13 +1,16 @@
 ﻿@model List<QLBH.Models.sanpham>
 
-<h2>Danh sach san pham</h2>
+<h2>NHV STORE</h2>
+<a href="/SanPham/Add">Them san pham</a>
+<br />
+<caption>Danh sách sản phẩm</caption>
 
 <table>
     <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Thao Tac</th>
+            <th>Tên Sản Phẩm</th>
+            <th>Thao Tác</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +21,7 @@
                     <td>@item.name</td>
                     <td>
                         <a href="/SanPham/Edit?id=@item.id">Sua</a>
-                        <a href="">Xoa</a>
+                        <a href="/SanPham/Delete?id=@item.id">Xoa</a>
                     </td>
                 </tr>
             }
