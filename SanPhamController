@@ -1,6 +1,7 @@
 using QLBH.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,7 +10,7 @@ namespace QLBH.Controllers
 {
     public class SanPhamController : Controller
     {
-        DataClasses1DataContext db = new DataClasses1DataContext("Data Source=VIET;Initial Catalog=QLBH;Integrated Security=True");
+        DataClasses1DataContext db = new DataClasses1DataContext("Data Source=DESKTOP-0746MOR;Initial Catalog=qlbh1;Integrated Security=True;TrustServerCertificate=True");
         // GET: SanPham
 
         public ActionResult Add()
@@ -35,8 +36,8 @@ namespace QLBH.Controllers
 
         public ActionResult Edit()
         {
-            string abc = Request.QueryString["ID"];
-            sanpham editObj = db.sanphams.Where(o=> o.id == abc).FirstOrDefault();
+            string abc = Request.QueryString["id"];
+            sanpham editObj = db.sanphams.Where(o => o.id == abc).FirstOrDefault();
             return View(editObj);
         }
 
@@ -45,7 +46,7 @@ namespace QLBH.Controllers
             string id = form["ID"];
             string name = form["Name"];
 
-            sanpham editObj = db.sanphams.Where(o=> o.id == id).FirstOrDefault();
+            sanpham editObj = db.sanphams.Where(o => o.id == id).FirstOrDefault();
 
             editObj.name = name;
 
@@ -53,9 +54,21 @@ namespace QLBH.Controllers
 
             return "chinh sua thanh cong";
         }
+
+        public ActionResult Delete()
+        {
+            string id = Request.QueryString["id"];
+            sanpham delObj = db.sanphams.Where(o => o.id == id).FirstOrDefault();
+
+            db.sanphams.DeleteOnSubmit(delObj);
+            db.SubmitChanges();
+
+            var x = db.sanphams.ToList();
+            return View("Index", x);
+        }
         public ActionResult Index()
         {
-            List<sanpham> x = db.sanphams.ToList();
+            var x = db.sanphams.ToList();
             return View(x);
         }
 
