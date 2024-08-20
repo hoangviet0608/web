@@ -1,3 +1,3 @@
 Trong file RouteConfig.cs, trong dòng controller, sửa "Home" thành "SanPham" để chạy file SanPhamController
 
-Trong Database set id làm khóa chính
+Trong Database set id làm khóa chính như trong hình database_sanpham
