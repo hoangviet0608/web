@@ -1,29 +1,44 @@
-﻿@model List<QLBH.Models.sanpham>
+﻿@{
+    ViewBag.Title = "Danh sách danh mục";
+}
 
-<h2>NHV STORE</h2>
-<a href="/SanPham/Add">Them san pham</a>
-<br />
-<caption>Danh sách sản phẩm</caption>
+@*
+    Chèn jQuery và AJAX vào View
+*@
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Tên Sản Phẩm</th>
-            <th>Thao Tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.id</td>
-                    <td>@item.name</td>
-                    <td>
-                        <a href="/SanPham/Edit?id=@item.id">Sua</a>
-                        <a href="/SanPham/Delete?id=@item.id">Xoa</a>
-                    </td>
-                </tr>
-            }
-    </tbody>
-</table>
+<title>Category List</title>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("GetCategories", "DanhMuc")',
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+
+                    console.log(data);
+
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra: ');
+                }
+            });
+        });
+</script>
+<div>
+    <!-- Danh sách danh mục sẽ được tải ở đây -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên Danh Mục</th>
+                <th>Mô Tả</th>
+                <th>ID Cha</th>
+            </tr>
+        </thead>
+        <tbody id="category-list">
+
+        </tbody>
+    </table>
+</div>
+
+
