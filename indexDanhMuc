@@ -1,0 +1,54 @@
+
+﻿@{
+    ViewBag.Title = "Danh sách Danh Mục";
+}
+
+@*
+    Chèn jQuery và AJAX vào View
+*@
+
+<title>Category List</title>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+            url: '@Url.Action("GetListDanhMuc", "DanhMuc")',
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+                var tableBody = $('#categoriesTable tbody');
+                tableBody.empty(); // Xóa dữ liệu cũ
+                $.each(data, function (index, item) {
+                    var row = '<tr>' +
+                        '<td>' + item.id + '</td>' +
+                        '<td>' + item.TenDanhMuc + '</td>' +
+                        '<td>' + item.MoTa + '</td>' + 
+                        '<td>' + item.idDanhMucCha + '</td>' +
+                        '</tr>';
+                    tableBody.append(row);
+                });
+            },
+            error: function () {
+                alert('Lỗi khi tải dữ liệu.');
+                }
+            });
+        });
+</script>
+<div>
+    <!-- Danh sách danh mục sẽ được tải ở đây -->
+    <table id="categoriesTable" class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên Danh Mục</th>
+                <th>Mô Tả</th>
+                <th>ID Cha</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>      
+    </table>
+</div>
+
+
+
